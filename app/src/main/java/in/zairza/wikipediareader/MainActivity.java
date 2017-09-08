@@ -1,6 +1,8 @@
 package in.zairza.wikipediareader;
 
 import android.speech.tts.TextToSpeech;
+import android.support.design.widget.FloatingActionButton;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -50,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
         final TextView textView = (TextView) findViewById(R.id.textView);
         final ProgressBar progress = (ProgressBar) findViewById(R.id.progressBar);
         final View textViewer = findViewById(R.id.textViewer);
+        final FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.volume);
 
         searchBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -71,7 +74,6 @@ public class MainActivity extends AppCompatActivity {
                                     String text = pages.getJSONObject(firstPage).getString("extract");
                                     textViewer.setVisibility(View.VISIBLE);
                                     textView.setText(text);
-                                    tts.speak(text, TextToSpeech.QUEUE_FLUSH, null);
                                 } catch (JSONException ex) {
                                     Toast.makeText(MainActivity.this,"Error in parsing response", Toast.LENGTH_SHORT).show();
                                 }
@@ -92,6 +94,19 @@ public class MainActivity extends AppCompatActivity {
                 textViewer.setVisibility(View.INVISIBLE);
                 progress.setVisibility(View.VISIBLE);
                 MainActivity.this.queue.add(jsObjRequest);
+            }
+        });
+
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (tts.isSpeaking()) {
+                    tts.stop();
+                    fab.setImageDrawable(ContextCompat.getDrawable(MainActivity.this, R.drawable.ic_play_arrow));
+                } else {
+                    fab.setImageDrawable(ContextCompat.getDrawable(MainActivity.this, R.drawable.ic_stop));
+                    tts.speak(textView.getText().toString(), TextToSpeech.QUEUE_FLUSH, null);
+                }
             }
         });
     }

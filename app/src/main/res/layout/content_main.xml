@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:clipToPadding="false"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="in.zairza.wikipediareader.MainActivity"
     tools:showIn="@layout/activity_main">
@@ -29,7 +30,7 @@
             android:layout_width="196dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            app:srcCompat="@mipmap/ic_search" />
+            app:srcCompat="@drawable/ic_search_black_24dp" />
     </LinearLayout>
 
     <RelativeLayout
@@ -55,7 +56,6 @@
                 android:id="@+id/textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Hello World!"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                 android:textSize="24sp" />
         </ScrollView>
